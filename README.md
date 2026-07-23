@@ -1,7 +1,4 @@
-
-## 📁 Project 3: Online Watches Store (E-Commerce)
-
-**File:** `README.md`
+`watches-store`
 
 ```markdown
 # ⌚ Online Watches Store
@@ -67,7 +64,7 @@ A full-stack e-commerce platform for luxury watches with robust **database desig
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/watches-store.git
+git clone https://github.com/salmaan112/watches-store.git
 cd watches-store
 
 # Import database schema
@@ -104,6 +101,21 @@ watches-store/
 ├── docs/
 │   └── er_diagram.png       # Entity-Relationship diagram
 └── README.md
+-- Before: N+1 query problem (slow)
+SELECT * FROM products WHERE brand_id = 1;
+-- Then loop to get brand names
+
+-- After: Single JOIN query (40% faster)
+SELECT 
+    p.product_id,
+    p.model_name,
+    p.price,
+    b.brand_name,
+    b.country
+FROM products p
+INNER JOIN brands b ON p.brand_id = b.brand_id
+WHERE p.price BETWEEN 10000 AND 50000
+ORDER BY p.price DESC;
 -- Before: N+1 query problem (slow)
 SELECT * FROM products WHERE brand_id = 1;
 -- Then loop to get brand names
